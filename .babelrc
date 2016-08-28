@@ -1,0 +1,11 @@
+{
+  "passPerPreset": true,
+  "ignore": false,
+  "presets": [
+    "react-native"
+  ],
+  "plugins": [
+    "syntax-flow",
+    "transform-flow-strip-types"
+  ]
+}
