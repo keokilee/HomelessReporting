@@ -7,11 +7,25 @@
   },
   "dependencies": {
     "react": "15.3.1",
-    "react-native": "0.32.0"
+    "react-native": "0.32.0",
+    "react-native-config": "0.0.8",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2",
+    "redux-loop": "^2.2.2"
   },
   "devDependencies": {
     "babel-plugin-syntax-flow": "^6.13.0",
     "babel-plugin-transform-flow-strip-types": "^6.14.0",
-    "babel-preset-react-native": "^1.9.0"
+    "babel-preset-react-native": "^1.9.0",
+    "eslint": "^3.4.0",
+    "eslint-config-standard": "^6.0.0",
+    "eslint-config-standard-react": "^4.0.0",
+    "eslint-plugin-babel": "^3.3.0",
+    "eslint-plugin-import": "^1.14.0",
+    "eslint-plugin-promise": "^2.0.1",
+    "eslint-plugin-react": "^6.2.0",
+    "eslint-plugin-react-native": "^2.0.0",
+    "eslint-plugin-standard": "^2.0.0",
+    "remote-redux-devtools": "^0.4.3"
   }
 }
