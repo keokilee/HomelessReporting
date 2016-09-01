@@ -1,10 +1,7 @@
 import { combineReducers } from 'redux-loop'
 
 import navigation from './navigation'
-
-function submitReportForm () {
-  return {}
-}
+import submitReportForm from './submitReportForm'
 
 export default combineReducers({
   navigation,

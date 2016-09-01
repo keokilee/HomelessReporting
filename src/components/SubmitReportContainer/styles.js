@@ -1,20 +1,24 @@
 import { StyleSheet } from 'react-native'
+import { HEADER_COLOR } from '../../styles'
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF'
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+    backgroundColor: 'white'
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10
+  buttonContainer: {
+    padding: 10,
+    height: 45,
+    overflow: 'hidden',
+    borderRadius: 4,
+    backgroundColor: HEADER_COLOR
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5
+  button: {
+    fontSize: 16,
+    color: 'white'
   }
 })

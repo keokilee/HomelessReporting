@@ -8,7 +8,9 @@
   "dependencies": {
     "react": "15.3.1",
     "react-native": "0.32.0",
+    "react-native-button": "^1.7.0",
     "react-native-config": "0.0.8",
+    "react-native-md-textinput": "^2.0.4",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
     "redux-loop": "^2.2.2"
