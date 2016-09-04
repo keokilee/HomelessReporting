@@ -5,22 +5,48 @@ import { connect } from 'react-redux'
 import TextField from 'react-native-md-textinput'
 import Button from 'react-native-button'
 
-import { updateName } from '../../actions'
+import {
+  fetchLocation,
+  updateName,
+  updateEmailAddress,
+  updatePhoneNumber,
+  updateDescription
+} from '../../actions'
 
 import HeaderBar from '../HeaderBar'
 
+import { INPUT_HIGHLIGHT_COLOR } from '../../styles'
 import styles from './styles'
 
 export class SubmitReportContainer extends Component {
   props: {
     dispatch: () => void,
-    name: string
+    name: string,
+    emailAddress: string,
+    phoneNumber: string,
+    description: string
   }
 
-  _onChangeName = (value) => this.props.dispatch(updateName(value))
+  componentDidMount () {
+    this.props.dispatch(fetchLocation())
+  }
+
+  _renderInput (label: string, inputValue: string, actionCreator: () => void, opts: Object = {}) {
+    const onChange = (value) => this.props.dispatch(actionCreator(value))
+
+    return <TextField
+      label={label}
+      onChangeText={onChange}
+      value={inputValue}
+      highlightColor={INPUT_HIGHLIGHT_COLOR}
+      dense
+      {...opts}
+    />
+  }
 
   render () {
-    const { name } = this.props
+    const { dispatch, name, emailAddress, phoneNumber, description } = this.props
+    const onChangeDescription = (value) => dispatch(updateDescription(value))
 
     return (
       <View style={{ flex: 1 }}>
@@ -30,32 +56,17 @@ export class SubmitReportContainer extends Component {
             Please fill out the following details.
           </Text>
 
-          <TextField
-            label={'Name'}
-            onChange={this._onChangeName}
-            value={name}
-            highlightColor={'#00C853'}
-            dense
-          />
+          {this._renderInput('Name', name, updateName)}
+          {this._renderInput('Email Address', emailAddress, updateEmailAddress, { autoCorrect: false })}
+          {this._renderInput('Phone Number', phoneNumber, updatePhoneNumber, { autoCorrect: false })}
 
-          <TextField
-            label={'Email Address'}
-            onChange={this._onChangeName}
-            value={name}
-            highlightColor={'#00C853'}
-            keyboardType={'email-address'}
-            dense
+          <TextInput
+            placeholder='Enter a short description of the encampment'
+            style={styles.description}
+            value={description}
+            onChangeText={onChangeDescription}
+            multiline
           />
-
-          <TextField
-            label={'Phone Number'}
-            onChange={this._onChangeName}
-            value={name}
-            highlightColor={'#00C853'}
-            keyboardType={'numeric'}
-            dense
-          />
-
           <Button
             containerStyle={styles.buttonContainer}
             style={styles.button}

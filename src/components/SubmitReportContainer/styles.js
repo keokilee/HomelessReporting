@@ -10,6 +10,13 @@ export default StyleSheet.create({
     paddingBottom: 10,
     backgroundColor: 'white'
   },
+  description: {
+    height: 60,
+    fontSize: 14,
+    borderWidth: 1,
+    borderColor: '#E0E0E0',
+    padding: 4
+  },
   buttonContainer: {
     padding: 10,
     height: 45,
