@@ -41,7 +41,7 @@ export default function (state: LocationStateType = INITIAL_LOCATION_STATE, acti
     case FETCH_LOCATION_SUCCESS: {
       return {
         ...state,
-        ...action.payload.location.coords,
+        ...action.payload.coords,
         fetchingLocation: false
       }
     }

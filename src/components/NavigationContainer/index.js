@@ -12,6 +12,10 @@ class NavigationContainer extends Component {
     navigation: PropTypes.object.isRequired
   }
 
+  _handleBackAction () {
+    return null
+  }
+
   componentDidMount () {
     BackAndroid.addEventListener('hardwareBackPress', this._handleBackAction)
   }

@@ -7,6 +7,8 @@ import {
   UPDATE_DESCRIPTION
 } from '../actions'
 
+import type { ActionType } from '../types'
+
 const INITIAL_FORM_STATE = {
   name: '',
   description: '',
@@ -17,7 +19,7 @@ const INITIAL_FORM_STATE = {
   longitude: ''
 }
 
-export default function submitReportForm (state = INITIAL_FORM_STATE, action) {
+export default function submitReportForm (state: Object = INITIAL_FORM_STATE, action: ActionType) {
   switch (action.type) {
     case UPDATE_NAME:
       return {

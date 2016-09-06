@@ -4,6 +4,7 @@ import { View, ScrollView, Text, TextInput } from 'react-native'
 import { connect } from 'react-redux'
 import TextField from 'react-native-md-textinput'
 import Button from 'react-native-button'
+import MapView from 'react-native-maps'
 
 import {
   fetchLocation,
@@ -15,6 +16,8 @@ import {
 
 import HeaderBar from '../HeaderBar'
 
+import type { LocationType } from '../../types'
+
 import { INPUT_HIGHLIGHT_COLOR } from '../../styles'
 import styles from './styles'
 
@@ -24,7 +27,8 @@ export class SubmitReportContainer extends Component {
     name: string,
     emailAddress: string,
     phoneNumber: string,
-    description: string
+    description: string,
+    location: LocationType
   }
 
   componentDidMount () {
@@ -44,8 +48,36 @@ export class SubmitReportContainer extends Component {
     />
   }
 
+  _renderMap () {
+    const { location } = this.props
+    if (location.latitude === null || location.longitude === null) {
+      return null
+    }
+
+    const initialRegion = {
+      latitude: location.latitude,
+      longitude: location.longitude,
+      latitudeDelta: 0.0017,
+      longitudeDelta: 0.0016
+    }
+
+    const markerCoordinate = { ...location }
+
+    return (
+      <MapView style={styles.map} initialRegion={initialRegion}>
+        <MapView.Marker coordinate={markerCoordinate} />
+      </MapView>
+    )
+  }
+
   render () {
-    const { dispatch, name, emailAddress, phoneNumber, description } = this.props
+    const {
+      dispatch,
+      name,
+      emailAddress,
+      phoneNumber,
+      description
+    } = this.props
     const onChangeDescription = (value) => dispatch(updateDescription(value))
 
     return (
@@ -67,6 +99,11 @@ export class SubmitReportContainer extends Component {
             onChangeText={onChangeDescription}
             multiline
           />
+
+          <View style={styles.mapContainer}>
+            {this._renderMap()}
+          </View>
+
           <Button
             containerStyle={styles.buttonContainer}
             style={styles.button}
@@ -79,8 +116,11 @@ export class SubmitReportContainer extends Component {
   }
 }
 
-function mapStateToProps (state) {
-  return state.submitReportForm
+function mapStateToProps ({ submitReportForm, location }) {
+  return {
+    ...submitReportForm,
+    location
+  }
 }
 
 export default connect(mapStateToProps)(SubmitReportContainer)

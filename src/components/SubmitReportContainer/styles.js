@@ -11,13 +11,29 @@ export default StyleSheet.create({
     backgroundColor: 'white'
   },
   description: {
-    height: 60,
+    marginTop: 20,
+    height: 100,
     fontSize: 14,
     borderWidth: 1,
     borderColor: '#E0E0E0',
     padding: 4
   },
+  mapContainer: {
+    marginTop: 20,
+    height: 100,
+    paddingTop: 0,
+    paddingBottom: 0,
+    paddingLeft: 0,
+    paddingRight: 0,
+    justifyContent: 'flex-end',
+    alignItems: 'center'
+  },
+  map: {
+    flex: 1,
+    alignSelf: 'stretch'
+  },
   buttonContainer: {
+    marginTop: 20,
     padding: 10,
     height: 45,
     overflow: 'hidden',
