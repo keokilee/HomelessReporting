@@ -99,40 +99,48 @@ export class SubmitReportContainer extends Component {
       <View style={{ flex: 1 }}>
         <HeaderBar text='Submit a report' />
         <ScrollView style={styles.container}>
-          <Text>
-            Please fill out the following details.
-          </Text>
+          <View style={styles.formSection}>
+            <Text style={styles.sectionHeader}>Your Contact Information</Text>
 
-          {this._renderMdField('Name', name, updateName)}
-          {this._renderMdField('Email Address', emailAddress, updateEmailAddress, { autoCorrect: false })}
-          {this._renderMdField('Phone Number', phoneNumber, updatePhoneNumber, { autoCorrect: false })}
-
-          <TextInput
-            placeholder='Enter a short description of the encampment'
-            style={styles.description}
-            value={description}
-            onChangeText={onChangeDescription}
-            multiline
-          />
-
-          <Button
-            containerStyle={styles.buttonContainer}
-            style={styles.button}
-            onPress={onShowImagePicker}
-          >
-            {this._imagePickerLabel()}
-          </Button>
-
-          <View styles={styles.imageToUploadContainer}>
-            {this._renderImageToUpload()}
+            {this._renderMdField('Name', name, updateName)}
+            {this._renderMdField('Email Address', emailAddress, updateEmailAddress, { autoCorrect: false })}
+            {this._renderMdField('Phone Number', phoneNumber, updatePhoneNumber, { autoCorrect: false })}
           </View>
 
-          <View style={styles.mapContainer}>
-            <MapView styles={styles.map} location={location} />
+          <View style={styles.formSection}>
+            <Text style={styles.sectionHeader}>Encampment Information</Text>
+
+            <TextInput
+              placeholder='Describe the encampment'
+              style={styles.description}
+              value={description}
+              onChangeText={onChangeDescription}
+              multiline
+            />
+
+            <Button
+              containerStyle={styles.buttonContainer}
+              style={styles.button}
+              onPress={onShowImagePicker}
+            >
+              {this._imagePickerLabel()}
+            </Button>
+
+            <View styles={styles.imageToUploadContainer}>
+              {this._renderImageToUpload()}
+            </View>
+          </View>
+
+          <View style={styles.formSection}>
+            <Text style={styles.sectionHeader}>Encampment Location</Text>
+
+            <View style={styles.mapContainer}>
+              <MapView styles={styles.map} location={location} />
+            </View>
           </View>
 
           <Button
-            containerStyle={styles.buttonContainer}
+            containerStyle={[styles.buttonContainer, styles.submitButtonContainer]}
             style={styles.button}
             onPress={onSubmitForm}
           >

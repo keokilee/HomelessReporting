@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { HEADER_COLOR } from '../../styles'
+import { BUTTON_COLOR } from '../../styles'
 
 export default StyleSheet.create({
   container: {
@@ -9,6 +9,12 @@ export default StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     backgroundColor: 'white'
+  },
+  formSection: {
+    marginBottom: 20
+  },
+  sectionHeader: {
+    fontSize: 16
   },
   description: {
     marginTop: 20,
@@ -42,10 +48,14 @@ export default StyleSheet.create({
     height: 45,
     overflow: 'hidden',
     borderRadius: 4,
-    backgroundColor: HEADER_COLOR
+    backgroundColor: BUTTON_COLOR
   },
   button: {
     fontSize: 16,
     color: 'white'
+  },
+  submitButtonContainer: {
+    marginTop: 0,
+    marginBottom: 10
   }
 })
