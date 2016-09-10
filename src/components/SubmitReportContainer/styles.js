@@ -18,6 +18,10 @@ export default StyleSheet.create({
     borderColor: '#E0E0E0',
     padding: 4
   },
+  imageToUpload: {
+    marginTop: 20,
+    height: 100
+  },
   mapContainer: {
     marginTop: 20,
     height: 100,

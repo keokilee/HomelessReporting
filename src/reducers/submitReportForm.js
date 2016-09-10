@@ -1,15 +1,18 @@
 // @flow
 
 import {
+  SUBMIT_FORM,
   UPDATE_NAME,
   UPDATE_EMAIL_ADDRESS,
   UPDATE_PHONE_NUMBER,
-  UPDATE_DESCRIPTION
+  UPDATE_DESCRIPTION,
+  SET_IMAGE_URI
 } from '../actions'
 
 import type { ActionType } from '../types'
 
 const INITIAL_FORM_STATE = {
+  submitting: false,
   name: '',
   description: '',
   emailAddress: '',
@@ -43,6 +46,18 @@ export default function submitReportForm (state: Object = INITIAL_FORM_STATE, ac
       return {
         ...state,
         description: action.payload.description
+      }
+
+    case SET_IMAGE_URI:
+      return {
+        ...state,
+        imageUri: action.payload.imageUri
+      }
+
+    case SUBMIT_FORM:
+      return {
+        ...state,
+        submittingForm: true
       }
 
     default:

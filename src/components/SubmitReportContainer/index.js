@@ -1,20 +1,23 @@
 // @flow
 import React, { Component } from 'react'
-import { View, ScrollView, Text, TextInput } from 'react-native'
+import { View, ScrollView, Text, TextInput, Image, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import TextField from 'react-native-md-textinput'
 import Button from 'react-native-button'
-import MapView from 'react-native-maps'
+import ImagePicker from 'react-native-image-picker'
 
 import {
   fetchLocation,
   updateName,
   updateEmailAddress,
   updatePhoneNumber,
-  updateDescription
+  updateDescription,
+  setImageUri,
+  submitForm
 } from '../../actions'
 
 import HeaderBar from '../HeaderBar'
+import MapView from '../MapView'
 
 import type { LocationType } from '../../types'
 
@@ -28,6 +31,7 @@ export class SubmitReportContainer extends Component {
     emailAddress: string,
     phoneNumber: string,
     description: string,
+    imageUri: string,
     location: LocationType
   }
 
@@ -35,7 +39,7 @@ export class SubmitReportContainer extends Component {
     this.props.dispatch(fetchLocation())
   }
 
-  _renderInput (label: string, inputValue: string, actionCreator: () => void, opts: Object = {}) {
+  _renderMdField (label: string, inputValue: string, actionCreator: () => void, opts: Object = {}) {
     const onChange = (value) => this.props.dispatch(actionCreator(value))
 
     return <TextField
@@ -48,37 +52,48 @@ export class SubmitReportContainer extends Component {
     />
   }
 
-  _renderMap () {
-    const { location } = this.props
-    if (location.latitude === null || location.longitude === null) {
+  _showImagePicker () {
+    const { dispatch } = this.props
+
+    ImagePicker.showImagePicker(response => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker')
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error)
+      } else {
+        const uri = Platform.OS === 'ios' ? response.uri.replace('file://', '') : response.uri
+        dispatch(setImageUri(uri))
+      }
+    })
+  }
+
+  _imagePickerLabel () {
+    const { imageUri } = this.props
+    return imageUri ? 'Change Image' : 'Upload an Image'
+  }
+
+  _renderImageToUpload () {
+    const { imageUri } = this.props
+    if (!imageUri) {
       return null
     }
 
-    const initialRegion = {
-      latitude: location.latitude,
-      longitude: location.longitude,
-      latitudeDelta: 0.0017,
-      longitudeDelta: 0.0016
-    }
-
-    const markerCoordinate = { ...location }
-
-    return (
-      <MapView style={styles.map} initialRegion={initialRegion}>
-        <MapView.Marker coordinate={markerCoordinate} />
-      </MapView>
-    )
+    return <Image source={{ uri: imageUri, isStatic: true }} style={styles.imageToUpload} />
   }
 
   render () {
     const {
       dispatch,
+      location,
       name,
       emailAddress,
       phoneNumber,
       description
     } = this.props
+
     const onChangeDescription = (value) => dispatch(updateDescription(value))
+    const onShowImagePicker = () => this._showImagePicker()
+    const onSubmitForm = () => dispatch(submitForm())
 
     return (
       <View style={{ flex: 1 }}>
@@ -88,9 +103,9 @@ export class SubmitReportContainer extends Component {
             Please fill out the following details.
           </Text>
 
-          {this._renderInput('Name', name, updateName)}
-          {this._renderInput('Email Address', emailAddress, updateEmailAddress, { autoCorrect: false })}
-          {this._renderInput('Phone Number', phoneNumber, updatePhoneNumber, { autoCorrect: false })}
+          {this._renderMdField('Name', name, updateName)}
+          {this._renderMdField('Email Address', emailAddress, updateEmailAddress, { autoCorrect: false })}
+          {this._renderMdField('Phone Number', phoneNumber, updatePhoneNumber, { autoCorrect: false })}
 
           <TextInput
             placeholder='Enter a short description of the encampment'
@@ -100,13 +115,26 @@ export class SubmitReportContainer extends Component {
             multiline
           />
 
+          <Button
+            containerStyle={styles.buttonContainer}
+            style={styles.button}
+            onPress={onShowImagePicker}
+          >
+            {this._imagePickerLabel()}
+          </Button>
+
+          <View styles={styles.imageToUploadContainer}>
+            {this._renderImageToUpload()}
+          </View>
+
           <View style={styles.mapContainer}>
-            {this._renderMap()}
+            <MapView styles={styles.map} location={location} />
           </View>
 
           <Button
             containerStyle={styles.buttonContainer}
             style={styles.button}
+            onPress={onSubmitForm}
           >
             Submit
           </Button>
