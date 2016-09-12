@@ -12,6 +12,7 @@
   "extends": [ "standard", "standard-react" ],
   "plugins": [
     "babel",
+    "flowtype",
     "import",
     "react",
     "react-native",

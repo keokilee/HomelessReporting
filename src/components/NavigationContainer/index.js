@@ -27,7 +27,7 @@ class NavigationContainer extends Component {
   _renderScene (sceneProps) {
     const { index, routes: routeProps } = sceneProps.navigationState
     const route = routeProps[index]
-    return routes[route.key](route.props)
+    return routes[route.key]()
   }
 
   render () {

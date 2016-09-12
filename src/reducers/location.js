@@ -38,21 +38,21 @@ export default function (state: LocationStateType = INITIAL_LOCATION_STATE, acti
         { ...state, fetchingLocation: true },
         Effects.promise(getLocationEffect)
       )
-    case FETCH_LOCATION_SUCCESS: {
+
+    case FETCH_LOCATION_SUCCESS:
       return {
         ...state,
         ...action.payload.coords,
         fetchingLocation: false
       }
-    }
-    case FETCH_LOCATION_ERROR: {
+
+    case FETCH_LOCATION_ERROR:
       // TODO: Handle error properly
-      return {
-        ...state,
-        ...TEST_COORDS,
-        fetchingLocation: false
-      }
-    }
+      return loop(
+        state,
+        Effects.constant(fetchLocationSuccess({ coords: TEST_COORDS }))
+      )
+
     default:
       return state
   }

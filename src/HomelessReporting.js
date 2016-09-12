@@ -1,4 +1,5 @@
 // @flow
+import 'babel-polyfill'
 import React, { Component } from 'react'
 import { compose, createStore } from 'redux'
 import { Provider } from 'react-redux'

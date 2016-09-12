@@ -5,7 +5,7 @@ import RNMapView from 'react-native-maps'
 import type { LocationType } from '../../types'
 
 export default class MapView extends Component {
-  props = {
+  props: {
     location: LocationType,
     styles: Object
   }

@@ -6,16 +6,20 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
+    "babel-polyfill": "^6.13.0",
     "react": "15.3.1",
     "react-native": "0.32.0",
     "react-native-button": "^1.7.0",
     "react-native-config": "0.0.8",
+    "react-native-fs": "^2.0.1-rc.2",
     "react-native-image-picker": "^0.22.2",
+    "react-native-image-resizer": "0.0.10",
     "react-native-maps": "^0.8.0",
     "react-native-md-textinput": "^2.0.4",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
-    "redux-loop": "^2.2.2"
+    "redux-loop": "^2.2.2",
+    "sha1": "^1.1.1"
   },
   "devDependencies": {
     "babel-plugin-syntax-flow": "^6.13.0",
@@ -25,6 +29,7 @@
     "eslint-config-standard": "^6.0.0",
     "eslint-config-standard-react": "^4.0.0",
     "eslint-plugin-babel": "^3.3.0",
+    "eslint-plugin-flowtype": "^2.16.1",
     "eslint-plugin-import": "^1.14.0",
     "eslint-plugin-promise": "^2.0.1",
     "eslint-plugin-react": "^6.2.0",
