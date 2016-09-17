@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     paddingTop: IOS_STATUS_BAR_HEIGHT,
     marginLeft: 5,
     marginRight: 5,
-    width: 30
+    width: 50
   }
 })
 

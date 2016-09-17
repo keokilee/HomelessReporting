@@ -7,6 +7,7 @@ import Button from 'react-native-button'
 import ImagePicker from 'react-native-image-picker'
 
 import {
+  navigationPopRoute,
   fetchLocation,
   updateName,
   updateEmailAddress,
@@ -17,6 +18,7 @@ import {
 } from '../../actions'
 
 import HeaderBar from '../HeaderBar'
+import NavButton from '../NavButton'
 import MapView from '../MapView'
 
 import type { LocationType } from '../../types'
@@ -37,6 +39,13 @@ export class SubmitReportContainer extends Component {
 
   componentDidMount () {
     this.props.dispatch(fetchLocation())
+  }
+
+  _renderBackButton () {
+    const { dispatch } = this.props
+    const onBackButtonPress = () => dispatch(navigationPopRoute())
+
+    return <NavButton text='Back' onPress={onBackButtonPress} />
   }
 
   _renderMdField (label: string, inputValue: string, actionCreator: () => void, opts: Object = {}) {
@@ -97,7 +106,7 @@ export class SubmitReportContainer extends Component {
 
     return (
       <View style={{ flex: 1 }}>
-        <HeaderBar text='Submit a report' />
+        <HeaderBar text='Submit a report' leftNavButton={this._renderBackButton()} />
         <ScrollView style={styles.container}>
           <View style={styles.formSection}>
             <Text style={styles.sectionHeader}>Your Contact Information</Text>

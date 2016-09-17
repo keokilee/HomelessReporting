@@ -31,11 +31,15 @@ class NavigationContainer extends Component {
   }
 
   render () {
+    const renderHeader = () => null
+
     return (
       <View style={{flex: 1}}>
         <StatusBar barStyle='light-content' />
         <NavigationCardStack
-          direction='vertical'
+          direction='horizontal'
+          style={{}}
+          renderHeader={renderHeader}
           navigationState={this.props.navigation}
           renderScene={this._renderScene} />
       </View>

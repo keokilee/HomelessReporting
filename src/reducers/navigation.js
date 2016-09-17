@@ -1,16 +1,22 @@
 // @flow
-import { NAVIGATION_PUSH_ROUTE, NAVIGATION_POP_ROUTE } from '../actions'
+import {
+  NAVIGATION_PUSH_ROUTE,
+  NAVIGATION_POP_ROUTE,
+  NAVIGATION_POP_TO_INDEX
+} from '../actions'
+
 import { NavigationExperimental } from 'react-native'
 
 import type { ActionType, NavigationRouteType } from '../types'
-import { submitReportRoute } from '../routes'
+import { appMenuRoute } from '../routes'
 
 const { StateUtils: NavigationStateUtils } = NavigationExperimental
 
 type NavigationStateType = { index: number, routes: Array<NavigationRouteType> }
+
 const initialState = {
   index: 0,
-  routes: [submitReportRoute()]
+  routes: [appMenuRoute()]
 }
 
 export default function navigation (state: NavigationStateType = initialState, { type, payload }: ActionType) {
@@ -27,6 +33,8 @@ export default function navigation (state: NavigationStateType = initialState, {
       }
 
       return NavigationStateUtils.pop(state)
+    case NAVIGATION_POP_TO_INDEX:
+      return initialState
     default:
       return state
   }
