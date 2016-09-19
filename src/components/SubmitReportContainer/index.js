@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { View, ScrollView, Text, TextInput, Image, Platform } from 'react-native'
 import { connect } from 'react-redux'
-import TextField from 'react-native-md-textinput'
+import MaterialTextInput from '../MaterialTextInput'
 import Button from 'react-native-button'
 import ImagePicker from 'react-native-image-picker'
 
@@ -24,7 +24,6 @@ import MapView from '../MapView'
 
 import type { LocationType } from '../../types'
 
-import { INPUT_HIGHLIGHT_COLOR } from '../../styles'
 import styles from './styles'
 
 export class SubmitReportContainer extends Component {
@@ -36,8 +35,8 @@ export class SubmitReportContainer extends Component {
     description: string,
     imageUri: string,
     location: LocationType,
-    isValid: bool,
-    submitting: bool
+    isValid: boolean,
+    submitting: boolean
   }
 
   componentDidMount () {
@@ -49,20 +48,6 @@ export class SubmitReportContainer extends Component {
     const onBackButtonPress = () => dispatch(navigationPopRoute())
 
     return <NavButton text='Back' onPress={onBackButtonPress} />
-  }
-
-  _renderMdField (label: string, inputValue: string, actionCreator: () => void, opts: Object = {}) {
-    const onChange = (value) => this.props.dispatch(actionCreator(value))
-
-    return <TextField
-      label={label}
-      onChangeText={onChange}
-      value={inputValue}
-      highlightColor={INPUT_HIGHLIGHT_COLOR}
-      textColor='white'
-      dense
-      {...opts}
-    />
   }
 
   _showImagePicker () {
@@ -125,6 +110,9 @@ export class SubmitReportContainer extends Component {
       description
     } = this.props
 
+    const onChangeName = (name) => dispatch(updateName(name))
+    const onChangeEmail = (email) => dispatch(updateEmailAddress(email))
+    const onChangePhoneNumber = (phoneNumber) => dispatch(updatePhoneNumber(phoneNumber))
     const onChangeDescription = (value) => dispatch(updateDescription(value))
     const onShowImagePicker = () => this._showImagePicker()
 
@@ -169,9 +157,9 @@ export class SubmitReportContainer extends Component {
             <View style={styles.formSection}>
               <Text style={styles.sectionHeader}>Your Contact Information</Text>
 
-              {this._renderMdField('Name', name, updateName)}
-              {this._renderMdField('Email Address', emailAddress, updateEmailAddress, { autoCorrect: false, autoCapitalize: 'none' })}
-              {this._renderMdField('Phone Number', phoneNumber, updatePhoneNumber, { autoCorrect: false })}
+              <MaterialTextInput label='Name' value={name} onChange={onChangeName} />
+              <MaterialTextInput label='Email Address' value={emailAddress} onChange={onChangeEmail} />
+              <MaterialTextInput label='Phone Number' value={phoneNumber} onChange={onChangePhoneNumber} />
             </View>
 
             {this._renderSubmitButton()}
