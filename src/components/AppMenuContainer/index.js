@@ -11,7 +11,6 @@ import BackgroundImage from '../BackgroundImage'
 
 import styles from './styles'
 
-
 export class AppMenuContainer extends Component {
   props: {
     dispatch: () => void

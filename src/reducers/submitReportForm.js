@@ -14,6 +14,7 @@ import {
   FETCH_LOCATION_SUCCESS,
   UPLOAD_PHOTO,
   UPLOAD_PHOTO_SUCCESS,
+  SUBMIT_REPORT_SUCCESS,
   uploadPhoto as uploadPhotoAction,
   uploadPhotoSuccess,
   uploadPhotoError,
@@ -129,6 +130,12 @@ export default function submitReportForm (state: Object = INITIAL_FORM_STATE, ac
         state,
         Effects.promise(submitReportEffect, state, action.payload.response.url)
       )
+
+    case SUBMIT_REPORT_SUCCESS:
+      return {
+        ...state,
+        submitting: false
+      }
 
     default:
       return state
