@@ -17,6 +17,7 @@ import {
   submitForm
 } from '../../actions'
 
+import BackgroundImage from '../BackgroundImage'
 import HeaderBar from '../HeaderBar'
 import NavButton from '../NavButton'
 import MapView from '../MapView'
@@ -34,7 +35,9 @@ export class SubmitReportContainer extends Component {
     phoneNumber: string,
     description: string,
     imageUri: string,
-    location: LocationType
+    location: LocationType,
+    isValid: bool,
+    submitting: bool
   }
 
   componentDidMount () {
@@ -56,6 +59,7 @@ export class SubmitReportContainer extends Component {
       onChangeText={onChange}
       value={inputValue}
       highlightColor={INPUT_HIGHLIGHT_COLOR}
+      textColor='white'
       dense
       {...opts}
     />
@@ -90,6 +94,27 @@ export class SubmitReportContainer extends Component {
     return <Image source={{ uri: imageUri, isStatic: true }} style={styles.imageToUpload} />
   }
 
+  _renderSubmitButton () {
+    const { dispatch, isValid, submitting } = this.props
+    const disabled = !isValid || submitting
+    let buttonContainerStyles = [styles.buttonContainer, styles.submitButtonContainer]
+    if (disabled) {
+      buttonContainerStyles.push(styles.disabledButtonContainer)
+    }
+
+    const onSubmitForm = () => dispatch(submitForm())
+
+    return (
+      <Button
+        containerStyle={buttonContainerStyles}
+        style={styles.button}
+        onPress={onSubmitForm}
+      >
+        Submit
+      </Button>
+    )
+  }
+
   render () {
     const {
       dispatch,
@@ -102,60 +127,56 @@ export class SubmitReportContainer extends Component {
 
     const onChangeDescription = (value) => dispatch(updateDescription(value))
     const onShowImagePicker = () => this._showImagePicker()
-    const onSubmitForm = () => dispatch(submitForm())
 
     return (
       <View style={{ flex: 1 }}>
-        <HeaderBar text='Submit a report' leftNavButton={this._renderBackButton()} />
-        <ScrollView style={styles.container}>
-          <View style={styles.formSection}>
-            <Text style={styles.sectionHeader}>Your Contact Information</Text>
+        <BackgroundImage>
+          <HeaderBar text='Submit a report' leftNavButton={this._renderBackButton()} />
+          <ScrollView style={styles.container}>
+            <View style={styles.formSection}>
+              <Text style={styles.sectionHeader}>Encampment Information</Text>
 
-            {this._renderMdField('Name', name, updateName)}
-            {this._renderMdField('Email Address', emailAddress, updateEmailAddress, { autoCorrect: false })}
-            {this._renderMdField('Phone Number', phoneNumber, updatePhoneNumber, { autoCorrect: false })}
-          </View>
+              <View styles={styles.imageToUploadContainer}>
+                {this._renderImageToUpload()}
+              </View>
 
-          <View style={styles.formSection}>
-            <Text style={styles.sectionHeader}>Encampment Information</Text>
+              <Button
+                containerStyle={styles.buttonContainer}
+                style={styles.button}
+                onPress={onShowImagePicker}
+              >
+                {this._imagePickerLabel()}
+              </Button>
 
-            <TextInput
-              placeholder='Describe the encampment'
-              style={styles.description}
-              value={description}
-              onChangeText={onChangeDescription}
-              multiline
-            />
-
-            <Button
-              containerStyle={styles.buttonContainer}
-              style={styles.button}
-              onPress={onShowImagePicker}
-            >
-              {this._imagePickerLabel()}
-            </Button>
-
-            <View styles={styles.imageToUploadContainer}>
-              {this._renderImageToUpload()}
+              <TextInput
+                placeholder='Describe the encampment'
+                placeholderTextColor='white'
+                style={styles.description}
+                value={description}
+                onChangeText={onChangeDescription}
+                multiline
+              />
             </View>
-          </View>
 
-          <View style={styles.formSection}>
-            <Text style={styles.sectionHeader}>Encampment Location</Text>
+            <View style={styles.formSection}>
+              <Text style={styles.sectionHeader}>Encampment Location</Text>
 
-            <View style={styles.mapContainer}>
-              <MapView styles={styles.map} location={location} />
+              <View style={styles.mapContainer}>
+                <MapView styles={styles.map} location={location} />
+              </View>
             </View>
-          </View>
 
-          <Button
-            containerStyle={[styles.buttonContainer, styles.submitButtonContainer]}
-            style={styles.button}
-            onPress={onSubmitForm}
-          >
-            Submit
-          </Button>
-        </ScrollView>
+            <View style={styles.formSection}>
+              <Text style={styles.sectionHeader}>Your Contact Information</Text>
+
+              {this._renderMdField('Name', name, updateName)}
+              {this._renderMdField('Email Address', emailAddress, updateEmailAddress, { autoCorrect: false, autoCapitalize: 'none' })}
+              {this._renderMdField('Phone Number', phoneNumber, updatePhoneNumber, { autoCorrect: false })}
+            </View>
+
+            {this._renderSubmitButton()}
+          </ScrollView>
+        </BackgroundImage>
       </View>
     )
   }

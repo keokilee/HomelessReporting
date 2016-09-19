@@ -98,7 +98,6 @@ export function submitReportSuccess (response) {
 }
 
 export function submitReportError (error) {
-  console.log(error)
   return {
     type: SUBMIT_REPORT_ERROR,
     payload: {

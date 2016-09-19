@@ -5,12 +5,13 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: 'white'
+    backgroundColor: 'transparent'
   },
   formSection: {
     marginBottom: 20
   },
   sectionHeader: {
+    color: 'white',
     fontSize: 16
   },
   description: {
@@ -18,12 +19,14 @@ export default StyleSheet.create({
     height: 100,
     fontSize: 14,
     borderWidth: 1,
+    borderRadius: 4,
     borderColor: '#E0E0E0',
-    padding: 4
+    padding: 8,
+    color: 'white'
   },
   imageToUpload: {
     marginTop: 20,
-    height: 100
+    height: 400
   },
   mapContainer: {
     marginTop: 20,
@@ -46,6 +49,9 @@ export default StyleSheet.create({
     overflow: 'hidden',
     borderRadius: 4,
     backgroundColor: BUTTON_COLOR
+  },
+  disabledButtonContainer: {
+    backgroundColor: '#454545'
   },
   button: {
     fontSize: 16,

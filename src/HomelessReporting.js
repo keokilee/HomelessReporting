@@ -1,17 +1,21 @@
 // @flow
 import 'babel-polyfill'
-import React, { Component } from 'react'
+
+import React from 'react'
 import { compose, createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { install } from 'redux-loop'
-import devTools from 'remote-redux-devtools'
 
 import reducers from './reducers'
 
 import NavigationContainer from './components/NavigationContainer'
 
 function finalCreateStore () {
-  const enhancers = compose(install(), devTools())
+  const enhancers = compose(
+    install(),
+    global.reduxNativeDevTools ? global.reduxNativeDevTools() : noop => noop
+  )
+
   const store = createStore(reducers, {}, enhancers)
 
   if (module.hot) {
@@ -26,12 +30,10 @@ function finalCreateStore () {
 
 const store = finalCreateStore()
 
-export default class HomelessReporting extends Component {
-  render () {
-    return (
-      <Provider store={store}>
-        <NavigationContainer />
-      </Provider>
-    )
-  }
+export default function () {
+  return (
+    <Provider store={store}>
+      <NavigationContainer />
+    </Provider>
+  )
 }
