@@ -1,14 +1,14 @@
-package com.homelessnessreporting;
+package com.homelessreporting;
 
 import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
-import fr.bamlab.rnimageresizer.ImageResizerPackage;
-import com.rnfs.RNFSPackage;
-import com.imagepicker.ImagePickerPackage;
 import com.airbnb.android.react.maps.MapsPackage;
+import com.imagepicker.ImagePickerPackage;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
+import com.rnfs.RNFSPackage;
+import fr.bamlab.rnimageresizer.ImageResizerPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -29,11 +29,11 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new ImageResizerPackage(),
-            new RNFSPackage(),
-            new ImagePickerPackage(),
             new MapsPackage(),
-            new ReactNativeConfigPackage()
+            new ImagePickerPackage(),
+            new ReactNativeConfigPackage(),
+            new RNFSPackage(),
+            new ImageResizerPackage()
       );
     }
   };
